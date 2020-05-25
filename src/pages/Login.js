@@ -127,12 +127,12 @@ const Login = ({classes}) => {
             helperText={errors.password}
             error={!!errors.password}
           />
-          {(errors.general || errors.error) && (
+          {errors.general && (
             <Typography
               variant="body2"
               className={classes.customError}
             >
-              {errors.general || errors.error}
+              {errors.general}
             </Typography>
           )}
 
