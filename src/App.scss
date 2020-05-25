@@ -2,8 +2,17 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
+
+  .MuiGrid-spacing-xs-1 {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 }
 
 .Navbar__container {
   margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
 }
