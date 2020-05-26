@@ -1,13 +1,14 @@
 import React from 'react';
-import {Link} from "react-router-dom";
-import dayjs from "dayjs";
-import relativeTime from 'dayjs/plugin/relativeTime'
+import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import PropTypes from 'prop-types';
 
 // MUI stuff
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from '@material-ui/core/styles/withStyles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Typography from "@material-ui/core/Typography";
+import Typography from '@material-ui/core/Typography';
 
 const styles = {
   card: {
@@ -15,19 +16,15 @@ const styles = {
     marginBottom: 16,
   },
   content: {
-    padding: 24
-  }
-}
+    padding: 24,
+  },
+};
 
 const Scream = (props) => {
   dayjs.extend(relativeTime);
   const {
     classes,
-    scream: {
-      userHandle,
-      body,
-      createdAt
-    }
+    scream: { userHandle, body, createdAt },
   } = props;
 
   return (
@@ -43,6 +40,11 @@ const Scream = (props) => {
       </CardContent>
     </Card>
   );
+};
+
+Scream.propTypes = {
+  classes: PropTypes.object.isRequired,
+  scream: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Scream);
