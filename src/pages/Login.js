@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import LoginIcon from '../assets/images/login.png';
-import axios from 'axios';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+// Redux stuff
+import { connect } from 'react-redux';
+import { loginUser } from '../redux/actions/userActions';
 
 // MUI stuff
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -13,65 +16,40 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = (theme) => ({
-  ...theme.formStyles,
+  ...theme.formStyles
 });
 
-const Login = ({ classes }) => {
+const Login = ({ classes, loginUser, history, UI }) => {
   const initialState = {
     email: '',
     password: '',
-    errors: {},
+    errors: {}
   };
 
   const [state, setState] = useState(initialState);
-
-  const [loading, setLoading] = useState(false);
-
-  const [isLogined, setIsLogined] = useState(false);
 
   // Handle input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
     setState((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: value
     }));
   };
 
   // Handle submit
   function handleSubmit(event) {
     event.preventDefault();
-    setLoading(true);
 
     const userData = {
       email: state.email,
-      password: state.password,
+      password: state.password
     };
 
-    axios
-      .post('/login', userData)
-      .then((res) => {
-        console.log(res.data);
-        localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
-        setLoading(false);
-        setIsLogined(true);
-      })
-      .catch((err) => {
-        console.error(err.response.data);
-        setState((prevState) => ({
-          ...prevState,
-          errors: err.response.data,
-        }));
-        setLoading(false);
-      });
+    loginUser(userData, history);
   }
 
-  // Redirect to home page after successful login
-  if (isLogined) {
-    return <Redirect to="/" />;
-  }
-
-  const { errors } = state;
+  const { errors, loading } = UI;
 
   return (
     <Grid container className={classes.form} justify="center">
@@ -130,6 +108,19 @@ const Login = ({ classes }) => {
 
 Login.propTypes = {
   classes: PropTypes.object.isRequired,
+  loginUser: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  UI: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Login);
+const mapStateToProps = (state) => ({
+  user: state.user,
+  UI: state.UI
+});
+
+const mapDispatchToProps = {
+  loginUser
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Login));

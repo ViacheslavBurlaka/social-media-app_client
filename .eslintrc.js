@@ -12,6 +12,7 @@ module.exports = {
     'no-console': 'warn',
     'react/no-unescaped-entities': 0,
     semi: 'error',
+    'comma-dangle': ['error', 'never'],
   },
   extends: ['eslint:recommended', 'plugin:react/recommended'],
 };
