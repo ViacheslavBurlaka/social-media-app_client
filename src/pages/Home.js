@@ -7,10 +7,17 @@ const Home = () => {
   const [screams, setScreams] = useState(null);
 
   useEffect(() => {
+    let isCanceled = false;
     axios
       .get('/screams')
-      .then((res) => setScreams(res.data))
+      .then((res) => {
+        if (!isCanceled) setScreams(res.data);
+      })
       .catch((err) => console.error(err));
+
+    return () => {
+      isCanceled = true;
+    };
   }, []);
 
   const screamElements = screams ? (

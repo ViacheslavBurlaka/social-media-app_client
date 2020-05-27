@@ -13,8 +13,8 @@ import { SET_AUTHENTICATED } from './redux/types';
 import { getUserData, logoutUser } from './redux/actions/userActions';
 
 const App = () => {
-  const token = localStorage.FBIdToken;
   useEffect(() => {
+    const token = localStorage.FBIdToken;
     if (token) {
       const decodedToken = jwtDecode(token);
       if (decodedToken.exp * 1000 < Date.now()) {
@@ -26,13 +26,7 @@ const App = () => {
         store.dispatch(getUserData());
       }
     }
-
-    return function () {
-      /**
-       * Add cleanup code here
-       */
-    };
-  }, [token]);
+  }, []);
 
   return (
     <Provider store={store}>
