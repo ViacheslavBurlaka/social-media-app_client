@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import LoginIcon from '../assets/images/login.png';
-import axios from 'axios';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+// Redux stuff
+import { connect } from 'react-redux';
+import { logoutUser, signupUser } from '../redux/actions/userActions';
 
 // MUI stuff
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -13,69 +16,42 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = (theme) => ({
-  ...theme.formStyles,
+  ...theme.formStyles
 });
 
-const Signup = ({ classes }) => {
+const Signup = ({ classes, user, history, UI: { loading, errors }, signupUser }) => {
   const initialState = {
     email: '',
     password: '',
     confirmPassword: '',
     handle: '',
-    errors: {},
+    errors: {}
   };
 
   const [state, setState] = useState(initialState);
-
-  const [loading, setLoading] = useState(false);
-
-  const [isLogined, setIsLogined] = useState(false);
 
   // Handle input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
     setState((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: value
     }));
   };
 
   // Handle submit
   function handleSubmit(event) {
     event.preventDefault();
-    setLoading(true);
 
     const newUserData = {
       email: state.email,
       password: state.password,
       confirmPassword: state.confirmPassword,
-      handle: state.handle,
+      handle: state.handle
     };
 
-    axios
-      .post('/signup', newUserData)
-      .then((res) => {
-        console.log(res.data);
-        localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
-        setLoading(false);
-        setIsLogined(true);
-      })
-      .catch((err) => {
-        console.error(err.response.data);
-        setState((prevState) => ({
-          ...prevState,
-          errors: err.response.data,
-        }));
-        setLoading(false);
-      });
+    signupUser(newUserData, history);
   }
-
-  // Redirect to home page after successful login
-  if (isLogined) {
-    return <Redirect to="/" />;
-  }
-
-  const { errors } = state;
 
   return (
     <Grid container className={classes.form} justify="center">
@@ -159,6 +135,16 @@ const Signup = ({ classes }) => {
 
 Signup.propTypes = {
   classes: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  UI: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  signupUser: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(Signup);
+const mapStateToProps = (state) => ({
+  user: state.user,
+  UI: state.UI
+});
+
+export default connect(mapStateToProps, { signupUser, logoutUser })(withStyles(styles)(Signup));

@@ -2,7 +2,9 @@ import { SET_USER, SET_AUTHENTICATED, SET_UNAUTHENTICATED } from '../types';
 
 const initialState = {
   authenticated: false,
-  credentials: {}
+  credentials: {},
+  likes: [],
+  notifications: []
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -13,10 +15,7 @@ export const userReducer = (state = initialState, action) => {
         authenticated: true
       };
     case SET_UNAUTHENTICATED:
-      return {
-        ...state,
-        authenticated: false
-      };
+      return initialState;
     case SET_USER:
       return {
         ...state,

@@ -19,7 +19,7 @@ const styles = (theme) => ({
   ...theme.formStyles
 });
 
-const Login = ({ classes, loginUser, history, UI }) => {
+const Login = ({ classes, loginUser, history, UI: { loading, errors } }) => {
   const initialState = {
     email: '',
     password: '',
@@ -48,8 +48,6 @@ const Login = ({ classes, loginUser, history, UI }) => {
 
     loginUser(userData, history);
   }
-
-  const { errors, loading } = UI;
 
   return (
     <Grid container className={classes.form} justify="center">
