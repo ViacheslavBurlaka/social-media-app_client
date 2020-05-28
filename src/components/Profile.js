@@ -18,6 +18,7 @@ import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
+import { uploadUserImage } from '../redux/actions/userActions';
 
 const styles = (theme) => ({
   ...theme.formStyles
@@ -28,14 +29,28 @@ const Profile = ({
     credentials: { handle, createdAt, imageUrl, bio, website, location },
     loading,
     authenticated
-  }
+  },
+  uploadUserImage
 }) => {
+  const handleImageChange = (event) => {
+    const image = event.target.files[0];
+    const formData = new FormData();
+    formData.append('image', image, image.name);
+    uploadUserImage(formData);
+  };
+
   let profileMarkup = !loading ? (
     authenticated ? (
       <Paper>
         <div>
           <div className="Profile__image">
             <img src={imageUrl} alt="profile" />
+            <input
+              type="file"
+              id="imageInput"
+              // hidden="hidden"
+              onChange={handleImageChange}
+            />
           </div>
           <hr />
           <div className="Profile__details">
@@ -89,11 +104,12 @@ const Profile = ({
 
 Profile.propTypes = {
   user: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  uploadUserImage: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   user: state.user
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(Profile));
+export default connect(mapStateToProps, { uploadUserImage })(withStyles(styles)(Profile));
