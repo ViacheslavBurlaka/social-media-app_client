@@ -117,8 +117,4 @@ const mapStateToProps = (state) => ({
   UI: state.UI
 });
 
-const mapDispatchToProps = {
-  loginUser
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Login));
+export default connect(mapStateToProps, { loginUser })(withStyles(styles)(Login));
