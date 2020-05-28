@@ -1,27 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Scream from '../components/Scream';
 import Profile from '../components/Profile';
+import PropTypes from 'prop-types';
 
-const Home = () => {
-  const [screams, setScreams] = useState(null);
+// Redux stuff
+import { connect } from 'react-redux';
+import { getAllScreams } from '../redux/actions/dataActions';
 
+const Home = ({ screams, getAllScreams, loading }) => {
   useEffect(() => {
-    let isCanceled = false;
-    axios
-      .get('/screams')
-      .then((res) => {
-        if (!isCanceled) setScreams(res.data);
-      })
-      .catch((err) => console.error(err));
+    getAllScreams();
+  }, [getAllScreams]);
 
-    return () => {
-      isCanceled = true;
-    };
-  }, []);
-
-  const screamElements = screams ? (
+  const screamElements = !loading ? (
     screams.map((scream) => <Scream key={scream.screamId} scream={scream} />)
   ) : (
     <p>Loading...</p>
@@ -39,4 +31,15 @@ const Home = () => {
   );
 };
 
-export default Home;
+Home.propTypes = {
+  screams: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
+  getAllScreams: PropTypes.func.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  screams: state.data.screams,
+  loading: state.data.loading
+});
+
+export default connect(mapStateToProps, { getAllScreams })(Home);
