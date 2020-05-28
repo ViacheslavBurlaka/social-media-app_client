@@ -19,8 +19,15 @@ export const dataReducer = (state = initialState, action) => {
         screams: action.payload,
         loading: false
       };
-    // case LIKE_SCREAM:
-    // case UNLIKE_SCREAM:
+    case LIKE_SCREAM:
+    case UNLIKE_SCREAM:
+      // eslint-disable-next-line no-case-declarations
+      let index = state.screams.findIndex((scream) => scream.screamId === action.payload.screamId);
+      state.screams[index] = action.payload;
+      console.log(state.screams);
+      return {
+        ...state
+      };
     default:
       return state;
   }
