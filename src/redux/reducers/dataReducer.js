@@ -23,10 +23,13 @@ export const dataReducer = (state = initialState, action) => {
     case UNLIKE_SCREAM:
       // eslint-disable-next-line no-case-declarations
       let index = state.screams.findIndex((scream) => scream.screamId === action.payload.screamId);
-      state.screams[index] = action.payload;
-      console.log(state.screams);
       return {
-        ...state
+        ...state,
+        screams: [
+          ...state.screams.slice(0, index),
+          (state.screams[index] = action.payload),
+          ...state.screams.slice(index + 1)
+        ]
       };
     default:
       return state;
