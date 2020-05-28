@@ -19,8 +19,8 @@ import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
-import Tooltip from '@material-ui/core/Tooltip';
 import EditDetails from './EditDetails';
+import { CustomButton } from '../elements/CustomButton';
 
 const styles = (theme) => ({
   ...theme.formStyles
@@ -43,6 +43,11 @@ const Profile = ({
     uploadUserImage(formData);
   };
 
+  const handleEditImage = () => {
+    const imageInput = document.getElementById('imageInput');
+    imageInput.click();
+  };
+
   function handleLogout() {
     logoutUser();
   }
@@ -53,12 +58,10 @@ const Profile = ({
         <div>
           <div className="Profile__image">
             <img src={imageUrl} alt="profile" />
-            <input
-              type="file"
-              id="imageInput"
-              // hidden="hidden"
-              onChange={handleImageChange}
-            />
+            <input type="file" id="imageInput" hidden="hidden" onChange={handleImageChange} />
+            <CustomButton tip="Edit profile image" onClick={handleEditImage}>
+              <EditIcon color="secondary" />
+            </CustomButton>
           </div>
           <hr />
           <div className="Profile__details">
@@ -88,11 +91,9 @@ const Profile = ({
             <CalendarToday color="primary" />{' '}
             <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
           </div>
-          <Tooltip title="Logout" placement="top">
-            <Button variant="contained" color="primary" onClick={handleLogout}>
-              <KeyboardReturn color="secondary" /> Logout
-            </Button>
-          </Tooltip>
+          <CustomButton tip="Logout" onClick={handleLogout}>
+            <KeyboardReturn />
+          </CustomButton>
           <EditDetails />
         </div>
       </Paper>
