@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 
 // Redux stuff
 import { connect } from 'react-redux';
+import { logoutUser, uploadUserImage } from '../redux/actions/userActions';
 
 // MUI stuff
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -18,11 +19,13 @@ import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
-import { uploadUserImage } from '../redux/actions/userActions';
+import Tooltip from '@material-ui/core/Tooltip';
+import EditDetails from './EditDetails';
 
 const styles = (theme) => ({
   ...theme.formStyles
 });
+
 const Profile = ({
   classes,
   user: {
@@ -30,7 +33,8 @@ const Profile = ({
     loading,
     authenticated
   },
-  uploadUserImage
+  uploadUserImage,
+  logoutUser
 }) => {
   const handleImageChange = (event) => {
     const image = event.target.files[0];
@@ -38,6 +42,10 @@ const Profile = ({
     formData.append('image', image, image.name);
     uploadUserImage(formData);
   };
+
+  function handleLogout() {
+    logoutUser();
+  }
 
   let profileMarkup = !loading ? (
     authenticated ? (
@@ -80,6 +88,12 @@ const Profile = ({
             <CalendarToday color="primary" />{' '}
             <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
           </div>
+          <Tooltip title="Logout" placement="top">
+            <Button variant="contained" color="primary" onClick={handleLogout}>
+              <KeyboardReturn color="secondary" /> Logout
+            </Button>
+          </Tooltip>
+          <EditDetails />
         </div>
       </Paper>
     ) : (
@@ -105,11 +119,14 @@ const Profile = ({
 Profile.propTypes = {
   user: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-  uploadUserImage: PropTypes.func.isRequired
+  uploadUserImage: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   user: state.user
 });
 
-export default connect(mapStateToProps, { uploadUserImage })(withStyles(styles)(Profile));
+export default connect(mapStateToProps, { uploadUserImage, logoutUser })(
+  withStyles(styles)(Profile)
+);
