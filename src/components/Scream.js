@@ -4,6 +4,7 @@ import { CustomButton } from '../elements/CustomButton';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
+import DeleteScream from './DeleteScream';
 
 // Redux stuff
 import { connect } from 'react-redux';
@@ -33,7 +34,11 @@ dayjs.extend(relativeTime);
 const Scream = ({
   classes,
   scream: { userHandle, body, createdAt, likeCount, commentCount, screamId },
-  user: { authenticated, likes },
+  user: {
+    authenticated,
+    likes,
+    credentials: { handle }
+  },
   likeScream,
   unlikeScream
 }) => {
@@ -65,11 +70,15 @@ const Scream = ({
     </CustomButton>
   );
 
+  const deleteButton =
+    authenticated && userHandle === handle ? <DeleteScream screamId={screamId} /> : null;
+
   return (
     <Card className={classes.card}>
       <CardContent className={classes.content}>
         <Typography variant="h5" component={Link} to={`/users/${userHandle}`} color="secondary">
           {userHandle}
+          {deleteButton}
         </Typography>
         <Typography variant="body2" color="textSecondary">
           {dayjs(createdAt).fromNow()}

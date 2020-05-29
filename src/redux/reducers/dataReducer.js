@@ -1,4 +1,4 @@
-import { SET_SCREAMS, LIKE_SCREAM, UNLIKE_SCREAM, LOADING_DATA } from '../types';
+import { SET_SCREAMS, LIKE_SCREAM, UNLIKE_SCREAM, LOADING_DATA, DELETE_SCREAM } from '../types';
 
 const initialState = {
   screams: [],
@@ -20,8 +20,7 @@ export const dataReducer = (state = initialState, action) => {
         loading: false
       };
     case LIKE_SCREAM:
-    case UNLIKE_SCREAM:
-      // eslint-disable-next-line no-case-declarations
+    case UNLIKE_SCREAM: {
       let index = state.screams.findIndex((scream) => scream.screamId === action.payload.screamId);
       return {
         ...state,
@@ -31,6 +30,14 @@ export const dataReducer = (state = initialState, action) => {
           ...state.screams.slice(index + 1)
         ]
       };
+    }
+    case DELETE_SCREAM: {
+      let index = state.screams.findIndex((scream) => scream.screamId === action.payload);
+      return {
+        ...state,
+        screams: [...state.screams.slice(0, index), ...state.screams.slice(index + 1)]
+      };
+    }
     default:
       return state;
   }
