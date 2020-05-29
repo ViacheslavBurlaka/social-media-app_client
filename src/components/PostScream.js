@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 // Redux stuff
 import { connect } from 'react-redux';
-import { postScream } from '../redux/actions/dataActions';
+import { clearErrors, postScream } from '../redux/actions/dataActions';
 
 // Components
 import { CustomButton } from '../elements/CustomButton';
@@ -18,7 +18,7 @@ import { CircularProgress } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 
-const PostScream = ({ postScream, UI: { loading, errors } }) => {
+const PostScream = ({ postScream, clearErrors, UI: { loading, errors } }) => {
   const initialState = {
     opened: false,
     body: '',
@@ -33,13 +33,14 @@ const PostScream = ({ postScream, UI: { loading, errors } }) => {
       errors: errors
     }));
 
-    if (!loading && Object.keys(errors).length === 0) {
+    if (!loading && Object.keys(errors).length === 0 && state.opened) {
       setState((prevState) => ({
         ...prevState,
         body: ''
       }));
       handleClose();
     }
+    // eslint-disable-next-line
   }, [errors, loading]);
 
   const handleOpen = () => {
@@ -50,6 +51,7 @@ const PostScream = ({ postScream, UI: { loading, errors } }) => {
   };
 
   const handleClose = () => {
+    clearErrors();
     setState((prevState) => ({
       ...prevState,
       opened: false,
@@ -111,6 +113,7 @@ const PostScream = ({ postScream, UI: { loading, errors } }) => {
 
 PostScream.propTypes = {
   postScream: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
   UI: PropTypes.object.isRequired
 };
 
@@ -118,4 +121,4 @@ const mapStateToProps = (state) => ({
   UI: state.UI
 });
 
-export default connect(mapStateToProps, { postScream })(PostScream);
+export default connect(mapStateToProps, { postScream, clearErrors })(PostScream);

@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CustomButton } from '../elements/CustomButton';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
+
+// Components
+import { CustomButton } from '../elements/CustomButton';
 import DeleteScream from './DeleteScream';
+import ScreamDialog from './ScreamDialog';
 
 // Redux stuff
 import { connect } from 'react-redux';
@@ -90,6 +93,7 @@ const Scream = ({
           <ChatIcon />
         </CustomButton>
         <span>{commentCount} comments</span>
+        <ScreamDialog screamId={screamId} userHandle={userHandle} />
       </CardContent>
     </Card>
   );
