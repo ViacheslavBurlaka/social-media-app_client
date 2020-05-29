@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // Components
+import PostScream from './PostScream';
 import { CustomButton } from '../elements/CustomButton';
 
 // Material UI
 import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 import Notifications from '@material-ui/icons/Notifications';
 
@@ -21,9 +21,7 @@ const Navbar = ({ authenticated }) => {
         <Toolbar className="Navbar__container">
           {authenticated ? (
             <>
-              <CustomButton tip="Post a Scream">
-                <AddIcon />
-              </CustomButton>
+              <PostScream />
               <Link to="/">
                 <CustomButton tip="Home">
                   <HomeIcon />

@@ -78,8 +78,8 @@ const Scream = ({
       <CardContent className={classes.content}>
         <Typography variant="h5" component={Link} to={`/users/${userHandle}`} color="secondary">
           {userHandle}
-          {deleteButton}
         </Typography>
+        {deleteButton}
         <Typography variant="body2" color="textSecondary">
           {dayjs(createdAt).fromNow()}
         </Typography>

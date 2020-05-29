@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { editUserDetails } from '../redux/actions/userActions';
 
 // MUI stuff
-import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
