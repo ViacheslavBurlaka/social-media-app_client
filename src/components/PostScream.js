@@ -32,7 +32,15 @@ const PostScream = ({ postScream, UI: { loading, errors } }) => {
       ...prevState,
       errors: errors
     }));
-  }, [errors]);
+
+    if (!loading && Object.keys(errors).length === 0) {
+      setState((prevState) => ({
+        ...prevState,
+        body: ''
+      }));
+      handleClose();
+    }
+  }, [errors, loading]);
 
   const handleOpen = () => {
     setState((prevState) => ({
@@ -59,7 +67,6 @@ const PostScream = ({ postScream, UI: { loading, errors } }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     postScream({
       body: state.body
     });
@@ -83,6 +90,7 @@ const PostScream = ({ postScream, UI: { loading, errors } }) => {
               name="body"
               type="text"
               label="Scream!!!"
+              value={state.body}
               placeholder="Share what in your mind!"
               onChange={handleChange}
               multiline
