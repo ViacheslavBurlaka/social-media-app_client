@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // Components
-import PostScream from './PostScream';
-import { CustomButton } from '../elements/CustomButton';
+import PostScream from '../scream/PostScream';
+import { CustomButton } from '../../elements/CustomButton';
 
 // Material UI
 import Toolbar from '@material-ui/core/Toolbar';

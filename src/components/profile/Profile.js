@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 
 // Redux stuff
 import { connect } from 'react-redux';
-import { logoutUser, uploadUserImage } from '../redux/actions/userActions';
+import { logoutUser, uploadUserImage } from '../../redux/actions/userActions';
 
 // MUI stuff
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -20,7 +20,7 @@ import CalendarToday from '@material-ui/icons/CalendarToday';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 import EditDetails from './EditDetails';
-import { CustomButton } from '../elements/CustomButton';
+import { CustomButton } from '../../elements/CustomButton';
 
 const styles = (theme) => ({
   ...theme.formStyles

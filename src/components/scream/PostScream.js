@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 // Redux stuff
 import { connect } from 'react-redux';
-import { clearErrors, postScream } from '../redux/actions/dataActions';
+import { clearErrors, postScream } from '../../redux/actions/dataActions';
 
 // Components
-import { CustomButton } from '../elements/CustomButton';
+import { CustomButton } from '../../elements/CustomButton';
 
 // MUI stuff
 import Button from '@material-ui/core/Button';

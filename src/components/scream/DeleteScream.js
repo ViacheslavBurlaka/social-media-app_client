@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { CustomButton } from '../elements/CustomButton';
+import { CustomButton } from '../../elements/CustomButton';
 
 // Redux stuff
 import { connect } from 'react-redux';
-import { deleteScream } from '../redux/actions/dataActions';
+import { deleteScream } from '../../redux/actions/dataActions';
 
 // MUI stuff
 import Button from '@material-ui/core/Button';

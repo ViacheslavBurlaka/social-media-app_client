@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 
 // Redux stuff
 import { connect } from 'react-redux';
-import { clearErrors, getScream } from '../redux/actions/dataActions';
+import { clearErrors, getScream } from '../../redux/actions/dataActions';
 
 // Components
-import { CustomButton } from '../elements/CustomButton';
+import { CustomButton } from '../../elements/CustomButton';
 
 // MUI stuff
 import Dialog from '@material-ui/core/Dialog';
@@ -21,12 +21,13 @@ import UnfoldMore from '@material-ui/icons/UnfoldMore';
 import CloseIcon from '@material-ui/icons/Close';
 import LikeButton from './LikeButton';
 import ChatIcon from '@material-ui/icons/Chat';
+import Comments from './Comments';
 
 const ScreamDialog = ({
   getScream,
   screamId,
   userHandle,
-  scream: { body, createdAt, likeCount, commentCount },
+  scream: { body, createdAt, likeCount, commentCount, comments },
   UI: { loading }
 }) => {
   const initialState = {
@@ -61,7 +62,6 @@ const ScreamDialog = ({
         <Typography variant="body2" color="textSecondary">
           {dayjs(createdAt).format('h:mm a, MMMM DD YYYY')}
         </Typography>
-        <hr />
         <Typography variant="body1">{body}</Typography>
         <LikeButton screamId={screamId} />
         <span>{likeCount} likes</span>
@@ -70,6 +70,7 @@ const ScreamDialog = ({
         </CustomButton>
         <span>{commentCount} comments</span>
       </Grid>
+      <Comments comments={comments} />
     </Grid>
   );
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // Components
-import Navbar from '../components/Navbar';
+import Navbar from '../components/layout/Navbar';
 import AuthRoute from '../hocs/AuthRoute';
 
 // Pages
