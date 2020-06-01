@@ -19,6 +19,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import UnfoldMore from '@material-ui/icons/UnfoldMore';
 import CloseIcon from '@material-ui/icons/Close';
+import LikeButton from './LikeButton';
+import ChatIcon from '@material-ui/icons/Chat';
 
 const ScreamDialog = ({
   getScream,
@@ -61,7 +63,12 @@ const ScreamDialog = ({
         </Typography>
         <hr />
         <Typography variant="body1">{body}</Typography>
+        <LikeButton screamId={screamId} />
         <span>{likeCount} likes</span>
+        <CustomButton tip="comments">
+          <ChatIcon />
+        </CustomButton>
+        <span>{commentCount} comments</span>
       </Grid>
     </Grid>
   );
