@@ -46,5 +46,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://us-central1-social-media-app-4e12c.cloudfunctions.net/api"
+  "proxy": "https://europe-west1-social-media-app-4e12c.cloudfunctions.net/api"
 }

@@ -19,8 +19,12 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import ChatIcon from '@material-ui/icons/Chat';
+import CardMedia from '@material-ui/core/CardMedia';
 
 const styles = {
+  image: {
+    width: 200
+  },
   card: {
     display: 'flex',
     marginBottom: 16
@@ -34,7 +38,7 @@ dayjs.extend(relativeTime);
 
 const Scream = ({
   classes,
-  scream: { userHandle, body, createdAt, likeCount, commentCount, screamId },
+  scream: { userImage, userHandle, body, createdAt, likeCount, commentCount, screamId },
   user: {
     authenticated,
     credentials: { handle }
@@ -45,6 +49,7 @@ const Scream = ({
 
   return (
     <Card className={classes.card}>
+      <CardMedia image={userImage} title="Profile image" className={classes.image} />
       <CardContent className={classes.content}>
         <Typography variant="h5" component={Link} to={`/users/${userHandle}`} color="secondary">
           {userHandle}
