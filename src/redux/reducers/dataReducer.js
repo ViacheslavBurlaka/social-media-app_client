@@ -1,3 +1,5 @@
+import cloneDeep from 'lodash.clonedeep';
+
 import {
   SET_SCREAMS,
   LIKE_SCREAM,
@@ -5,7 +7,8 @@ import {
   LOADING_DATA,
   DELETE_SCREAM,
   POST_SCREAM,
-  SET_SCREAM
+  SET_SCREAM,
+  SUBMIT_COMMENT
 } from '../types';
 
 const initialState = {
@@ -41,7 +44,7 @@ export const dataReducer = (state = initialState, action) => {
     case UNLIKE_SCREAM: {
       let index = state.screams.findIndex((scream) => scream.screamId === action.payload.screamId);
       if (state.scream.screamId === action.payload.screamId) {
-        state.scream = action.payload;
+        state.scream = { ...state.scream, ...action.payload };
       }
       return {
         ...state,
@@ -57,6 +60,20 @@ export const dataReducer = (state = initialState, action) => {
       return {
         ...state,
         screams: [...state.screams.slice(0, index), ...state.screams.slice(index + 1)]
+      };
+    }
+    case SUBMIT_COMMENT: {
+      let index = state.screams.findIndex((scream) => scream.screamId === action.payload.screamId);
+      let updatedScreams = cloneDeep(state.screams);
+      updatedScreams[index].commentCount += 1;
+      return {
+        ...state,
+        screams: updatedScreams,
+        scream: {
+          ...state.scream,
+          comments: [action.payload.comment, ...state.scream.comments],
+          commentCount: state.scream.commentCount + 1
+        }
       };
     }
     default:
