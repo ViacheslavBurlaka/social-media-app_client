@@ -7,6 +7,7 @@ import AuthRoute from '../hocs/AuthRoute';
 
 // Pages
 import Home from '../pages/Home';
+import User from '../pages/User';
 import Signup from '../pages/Signup';
 import Login from '../pages/Login';
 
@@ -17,6 +18,7 @@ const AppRouter = () => {
       <div className="Container">
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/users/:handle" component={User} />
           <AuthRoute exact path="/login" component={Login} />
           <AuthRoute exact path="/signup" component={Signup} />
         </Switch>
