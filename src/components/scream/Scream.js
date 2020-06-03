@@ -42,7 +42,8 @@ const Scream = ({
   user: {
     authenticated,
     credentials: { handle }
-  }
+  },
+  openDialog
 }) => {
   const deleteButton =
     authenticated && userHandle === handle ? <DeleteScream screamId={screamId} /> : null;
@@ -65,7 +66,7 @@ const Scream = ({
           <ChatIcon />
         </CustomButton>
         <span>{commentCount} comments</span>
-        <ScreamDialog screamId={screamId} userHandle={userHandle} />
+        <ScreamDialog screamId={screamId} userHandle={userHandle} openDialog={openDialog} />
       </CardContent>
     </Card>
   );
@@ -74,7 +75,8 @@ const Scream = ({
 Scream.propTypes = {
   classes: PropTypes.object.isRequired,
   scream: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  openDialog: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({

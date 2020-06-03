@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // Components
 import Navbar from '../components/layout/Navbar';
-import AuthRoute from '../hocs/AuthRoute';
+import AuthRoute from '../components/hocs/AuthRoute';
 
 // Pages
 import Home from '../pages/Home';
@@ -21,6 +21,7 @@ const AppRouter = () => {
           <Route exact path="/users/:handle" component={User} />
           <AuthRoute exact path="/login" component={Login} />
           <AuthRoute exact path="/signup" component={Signup} />
+          <Route exact path="/users/:handle/scream/:screamId" component={User} />
         </Switch>
       </div>
     </Router>

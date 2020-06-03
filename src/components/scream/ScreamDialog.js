@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -24,6 +24,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import ChatIcon from '@material-ui/icons/Chat';
 
 const ScreamDialog = ({
+  openDialog,
   getScream,
   clearErrors,
   screamId,
@@ -32,20 +33,36 @@ const ScreamDialog = ({
   UI: { loading }
 }) => {
   const initialState = {
-    opened: false
+    opened: false,
+    oldPath: '',
+    newPath: ''
   };
 
   const [state, setState] = useState(initialState);
 
+  useEffect(() => {
+    if (openDialog) {
+      handleOpen();
+    }
+  }, [openDialog]);
+
   const handleOpen = () => {
+    // when dialog opens it creates new url at browser like in twitter
+    let oldPath = window.location.pathname;
+    const newPath = `/users/${userHandle}/scream/${screamId}`;
+    window.history.pushState(null, null, newPath);
+
     setState((prevState) => ({
       ...prevState,
-      opened: true
+      opened: true,
+      oldPath,
+      newPath
     }));
     getScream(screamId);
   };
 
   const handleClose = () => {
+    window.history.pushState(null, null, state.oldPath);
     clearErrors();
     setState((prevState) => ({
       ...prevState,
@@ -98,7 +115,8 @@ ScreamDialog.propTypes = {
   clearErrors: PropTypes.func.isRequired,
   screamId: PropTypes.string.isRequired,
   userHandle: PropTypes.string.isRequired,
-  UI: PropTypes.object.isRequired
+  UI: PropTypes.object.isRequired,
+  openDialog: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({

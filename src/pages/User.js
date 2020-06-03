@@ -15,13 +15,23 @@ import Grid from '@material-ui/core/Grid';
 
 const User = ({ data: { loading, screams }, getUserData, match }) => {
   const initialState = {
-    profile: null
+    profile: null,
+    screamIdParam: null
   };
 
   const [state, setState] = useState(initialState);
 
   useEffect(() => {
     const handle = match.params.handle;
+    const screamId = match.params.screamId;
+
+    if (screamId) {
+      setState((prevState) => ({
+        ...prevState,
+        screamIdParam: screamId
+      }));
+    }
+
     getUserData(handle);
 
     // Make another get-request, because I don't want to save static profile data at global state
@@ -34,14 +44,22 @@ const User = ({ data: { loading, screams }, getUserData, match }) => {
         }));
       })
       .catch((err) => console.error(err));
-  }, [match]);
+  }, [match, getUserData]);
 
   const screamMarkup = loading ? (
     <div>loading data...</div>
   ) : screams === null ? (
     <p>No screams from this user</p>
-  ) : (
+  ) : !state.screamIdParam ? (
     screams.map((scream) => <Scream key={scream.screamId} scream={scream} />)
+  ) : (
+    screams.map((scream) => {
+      if (scream.screamId !== state.screamIdParam) {
+        return <Scream key={scream.screamId} scream={scream} />;
+      } else {
+        return <Scream key={scream.screamId} scream={scream} openDialog />;
+      }
+    })
   );
 
   return (
