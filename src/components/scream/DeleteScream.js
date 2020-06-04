@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { CustomButton } from '../../elements/CustomButton';
+import { CustomButton } from '../layout/CustomButton';
 
 // Redux stuff
 import { connect } from 'react-redux';

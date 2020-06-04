@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { clearErrors, getScream } from '../../redux/actions/dataActions';
 
 // Components
-import { CustomButton } from '../../elements/CustomButton';
+import { CustomButton } from '../layout/CustomButton';
 import Comments from './Comments';
 import CommentForm from './CommentForm';
 import LikeButton from './LikeButton';
@@ -40,16 +40,15 @@ const ScreamDialog = ({
 
   const [state, setState] = useState(initialState);
 
-  useEffect(() => {
-    if (openDialog) {
-      handleOpen();
-    }
-  }, [openDialog]);
-
-  const handleOpen = () => {
+  const handleOpen = useCallback(() => {
     // when dialog opens it creates new url at browser like in twitter
     let oldPath = window.location.pathname;
     const newPath = `/users/${userHandle}/scream/${screamId}`;
+
+    if (oldPath === newPath) {
+      oldPath = `/users/${userHandle}`;
+    }
+
     window.history.pushState(null, null, newPath);
 
     setState((prevState) => ({
@@ -59,7 +58,7 @@ const ScreamDialog = ({
       newPath
     }));
     getScream(screamId);
-  };
+  }, [getScream, screamId, userHandle]);
 
   const handleClose = () => {
     window.history.pushState(null, null, state.oldPath);
@@ -69,6 +68,12 @@ const ScreamDialog = ({
       opened: false
     }));
   };
+
+  useEffect(() => {
+    if (openDialog) {
+      handleOpen();
+    }
+  }, [openDialog, handleOpen]);
 
   const dialogMarkup = loading ? (
     <CircularProgress />

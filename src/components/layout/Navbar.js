@@ -5,14 +5,14 @@ import PropTypes from 'prop-types';
 
 // Components
 import PostScream from '../scream/PostScream';
-import { CustomButton } from '../../elements/CustomButton';
+import Notifications from './Notifications';
+import { CustomButton } from './CustomButton';
 
 // Material UI
 import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import HomeIcon from '@material-ui/icons/Home';
-import Notifications from '@material-ui/icons/Notifications';
 
 const Navbar = ({ authenticated }) => {
   return (
@@ -27,9 +27,7 @@ const Navbar = ({ authenticated }) => {
                   <HomeIcon />
                 </CustomButton>
               </Link>
-              <CustomButton tip="Notifications">
-                <Notifications />
-              </CustomButton>
+              <Notifications />
             </>
           ) : (
             <>

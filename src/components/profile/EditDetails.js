@@ -12,7 +12,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import DialogActions from '@material-ui/core/DialogActions';
-import { CustomButton } from '../../elements/CustomButton';
+import { CustomButton } from '../layout/CustomButton';
 import EditIcon from '@material-ui/icons/Edit';
 
 const EditDetails = ({ credentials, editUserDetails }) => {

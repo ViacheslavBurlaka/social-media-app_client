@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 
 // Components
 import EditDetails from './EditDetails';
-import { CustomButton } from '../../elements/CustomButton';
+import { CustomButton } from '../layout/CustomButton';
 
 // Redux stuff
 import { connect } from 'react-redux';

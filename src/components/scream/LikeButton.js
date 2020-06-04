@@ -1,5 +1,5 @@
 import React from 'react';
-import { CustomButton } from '../../elements/CustomButton';
+import { CustomButton } from '../layout/CustomButton';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 // Redux stuff
@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { clearErrors, postScream } from '../../redux/actions/dataActions';
 
 // Components
-import { CustomButton } from '../../elements/CustomButton';
+import { CustomButton } from '../layout/CustomButton';
 
 // MUI stuff
 import Button from '@material-ui/core/Button';
@@ -27,22 +27,6 @@ const PostScream = ({ postScream, clearErrors, UI: { loading, errors } }) => {
 
   const [state, setState] = useState(initialState);
 
-  useEffect(() => {
-    setState((prevState) => ({
-      ...prevState,
-      errors: errors
-    }));
-
-    if (!loading && Object.keys(errors).length === 0 && state.opened) {
-      setState((prevState) => ({
-        ...prevState,
-        body: ''
-      }));
-      handleClose();
-    }
-    // eslint-disable-next-line
-  }, [errors, loading]);
-
   const handleOpen = () => {
     setState((prevState) => ({
       ...prevState,
@@ -50,14 +34,14 @@ const PostScream = ({ postScream, clearErrors, UI: { loading, errors } }) => {
     }));
   };
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     clearErrors();
     setState((prevState) => ({
       ...prevState,
       opened: false,
       errors: {}
     }));
-  };
+  }, [clearErrors]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -73,6 +57,24 @@ const PostScream = ({ postScream, clearErrors, UI: { loading, errors } }) => {
       body: state.body
     });
   };
+
+  useEffect(() => {
+    if (errors) {
+      setState((prevState) => ({
+        ...prevState,
+        errors: errors
+      }));
+    }
+
+    if (!loading && Object.keys(errors).length === 0 && state.opened) {
+      setState((prevState) => ({
+        ...prevState,
+        body: ''
+      }));
+      handleClose();
+    }
+    // eslint-disable-next-line
+  }, [errors, loading, handleClose]);
 
   return (
     <>
