@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 
 // Components
+import UnauthorizedProfile from './UnauthorizedProfile';
 import EditDetails from './EditDetails';
+import ProfileSkeleton from '../sceletons/ProfileSceleton';
 import { CustomButton } from '../layout/CustomButton';
 
 // Redux stuff
@@ -13,19 +15,18 @@ import { logoutUser, uploadUserImage } from '../../redux/actions/userActions';
 
 // MUI stuff
 import withStyles from '@material-ui/core/styles/withStyles';
+import { Paper, Typography } from '@material-ui/core';
 import MuiLink from '@material-ui/core/Link';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 
 //MUI Icons
 import LocationOn from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
-import EditIcon from '@material-ui/icons/Edit';
+import UploadIcon from '@material-ui/icons/PhotoCamera';
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
+
 const styles = (theme) => ({
-  ...theme.formStyles
+  ...theme.profileStyles
 });
 
 const Profile = ({
@@ -56,64 +57,57 @@ const Profile = ({
 
   let profileMarkup = !loading ? (
     authenticated ? (
-      <Paper>
-        <div>
-          <div className="Profile__image">
-            <img src={imageUrl} alt="profile" />
-            <input type="file" id="imageInput" hidden="hidden" onChange={handleImageChange} />
-            <CustomButton tip="Edit profile image" onClick={handleEditImage}>
-              <EditIcon color="secondary" />
-            </CustomButton>
-          </div>
-          <hr />
-          <div className="Profile__details">
-            <MuiLink component={Link} to={`/users/${handle}`} color="primary" variant="h5">
-              @{handle}
-            </MuiLink>
-            <hr />
-            {bio && <Typography variant="body2">{bio}</Typography>}
-            <hr />
-            {location && (
-              <>
-                <LocationOn color="primary" />
-                <span>{location}</span>
-                <hr />
-              </>
-            )}
-            {website && (
-              <>
-                <LinkIcon color="primary" />
-                <a href={website} target="_blank" rel="noopener noreferrer">
-                  {' '}
-                  {website}
-                </a>
-                <hr />
-              </>
-            )}
+      <Paper className={classes.profile}>
+        <div className={classes.profileImage}>
+          <img src={imageUrl} alt="profile" />
+          <input type="file" id="imageInput" hidden="hidden" onChange={handleImageChange} />
+          <CustomButton tip="Edit profile image" onClick={handleEditImage}>
+            <UploadIcon color="primary" />
+          </CustomButton>
+        </div>
+        <div className={classes.profileInformation}>
+          <MuiLink
+            component={Link}
+            to={`/users/${handle}`}
+            color="primary"
+            align={'center'}
+            variant="h5"
+          >
+            @{handle}
+          </MuiLink>
+          {bio && <Typography variant="body2">{bio}</Typography>}
+          {location && (
+            <Typography variant={'body2'}>
+              <LocationOn color="primary" />
+              <span>{location}</span>
+            </Typography>
+          )}
+          {website && (
+            <Typography variant={'body2'}>
+              <LinkIcon color="primary" />
+              <a href={website} target="_blank" rel="noopener noreferrer">
+                {' '}
+                {website}
+              </a>
+            </Typography>
+          )}
+          <Typography variant={'body2'}>
             <CalendarToday color="primary" />{' '}
             <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
-          </div>
+          </Typography>
+        </div>
+        <div className={classes.profileActions}>
           <CustomButton tip="Logout" onClick={handleLogout}>
-            <KeyboardReturn />
+            <KeyboardReturn color="primary" />
           </CustomButton>
           <EditDetails />
         </div>
       </Paper>
     ) : (
-      <Paper>
-        <Typography variant="body2">No profile found, please login again</Typography>
-        <div>
-          <Button variant="contained" color="primary" component={Link} to="/login">
-            Login
-          </Button>
-          <Button variant="contained" color="secondary" component={Link} to="/signup">
-            Signup
-          </Button>
-        </div>
-      </Paper>
+      <UnauthorizedProfile />
     )
   ) : (
-    <p>loading...</p>
+    <ProfileSkeleton />
   );
 
   return profileMarkup;

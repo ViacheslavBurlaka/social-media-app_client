@@ -3,14 +3,18 @@ import './App.scss';
 import AppRouter from './routers/AppRouter';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
+
 // Themes
 import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from './themes/MUItheme';
+
 // Redux
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { SET_AUTHENTICATED } from './redux/types';
 import { getUserData, logoutUser } from './redux/actions/userActions';
+
+axios.defaults.baseURL = 'https://europe-west1-social-media-app-4e12c.cloudfunctions.net/api';
 
 const App = () => {
   useEffect(() => {

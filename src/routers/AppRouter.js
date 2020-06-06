@@ -6,10 +6,10 @@ import Navbar from '../components/layout/Navbar';
 import AuthRoute from '../components/hocs/AuthRoute';
 
 // Pages
-import Home from '../pages/Home';
-import User from '../pages/User';
-import Signup from '../pages/Signup';
-import Login from '../pages/Login';
+import Home from '../pages/home';
+import User from '../pages/user';
+import Signup from '../pages/signup';
+import Login from '../pages/login';
 
 const AppRouter = () => {
   return (
@@ -18,9 +18,9 @@ const AppRouter = () => {
       <div className="Container">
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/users/:handle" component={User} />
           <AuthRoute exact path="/login" component={Login} />
           <AuthRoute exact path="/signup" component={Signup} />
+          <Route exact path="/users/:handle" component={User} />
           <Route exact path="/users/:handle/scream/:screamId" component={User} />
         </Switch>
       </div>

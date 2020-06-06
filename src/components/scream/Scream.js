@@ -15,24 +15,40 @@ import { connect } from 'react-redux';
 
 // MUI stuff
 import withStyles from '@material-ui/core/styles/withStyles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import { Card, CardContent, Typography, CardMedia } from '@material-ui/core';
 import ChatIcon from '@material-ui/icons/Chat';
-import CardMedia from '@material-ui/core/CardMedia';
 
-const styles = {
-  image: {
-    width: 200
-  },
+const styles = (theme) => ({
   card: {
+    position: 'relative',
     display: 'flex',
+    flexWrap: 'wrap',
     marginBottom: 16
   },
+  image: {
+    width: 50,
+    height: 50,
+    borderRadius: '50%',
+    margin: '1rem 1.5rem 0',
+    [theme.breakpoints.up('sm')]: {
+      width: 120,
+      height: 120,
+      margin: 'auto 1rem'
+    }
+  },
+  details: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: '1 0 0'
+  },
   content: {
-    padding: 24
+    padding: '1.5rem 1.5rem 1rem'
+  },
+  actions: {
+    display: 'flex',
+    alignItems: 'center'
   }
-};
+});
 
 dayjs.extend(relativeTime);
 
@@ -51,23 +67,27 @@ const Scream = ({
   return (
     <Card className={classes.card}>
       <CardMedia image={userImage} title="Profile image" className={classes.image} />
-      <CardContent className={classes.content}>
-        <Typography variant="h5" component={Link} to={`/users/${userHandle}`} color="secondary">
-          {userHandle}
-        </Typography>
-        {deleteButton}
-        <Typography variant="body2" color="textSecondary">
-          {dayjs(createdAt).fromNow()}
-        </Typography>
-        <Typography variant="body1">{body}</Typography>
-        <LikeButton screamId={screamId} />
-        <span>{likeCount} likes</span>
-        <CustomButton tip="comments">
-          <ChatIcon />
-        </CustomButton>
-        <span>{commentCount} comments</span>
-        <ScreamDialog screamId={screamId} userHandle={userHandle} openDialog={openDialog} />
-      </CardContent>
+      <div className={classes.details}>
+        <CardContent className={classes.content}>
+          <Typography variant="h5" component={Link} to={`/users/${userHandle}`} color={'primary'}>
+            {userHandle}
+          </Typography>
+          <Typography variant="body2" color="textSecondary">
+            {dayjs(createdAt).fromNow()}
+          </Typography>
+          <Typography variant="body1">{body}</Typography>
+        </CardContent>
+        <div className={classes.actions}>
+          <LikeButton screamId={screamId} />
+          <span>{likeCount} likes</span>
+          <CustomButton tip="comments">
+            <ChatIcon color={'primary'} />
+          </CustomButton>
+          <span>{commentCount} comments</span>
+          <ScreamDialog screamId={screamId} userHandle={userHandle} openDialog={openDialog} />
+        </div>
+      </div>
+      {deleteButton}
     </Card>
   );
 };

@@ -1,26 +1,29 @@
 import React, { useEffect } from 'react';
-import Grid from '@material-ui/core/Grid';
+import PropTypes from 'prop-types';
+
+// Components
 import Scream from '../components/scream/Scream';
 import Profile from '../components/profile/Profile';
-import PropTypes from 'prop-types';
 
 // Redux stuff
 import { connect } from 'react-redux';
 import { getAllScreams } from '../redux/actions/dataActions';
+
+// MUI stuff
+import { Grid } from '@material-ui/core';
+import ScreamSceleton from '../components/sceletons/ScreamSceleton';
 
 const Home = ({ screams, getAllScreams, loading }) => {
   useEffect(() => {
     getAllScreams();
   }, [getAllScreams]);
 
-  const screamElements = !loading ? (
-    screams.map((scream) => <Scream key={scream.screamId} scream={scream} />)
-  ) : (
-    <p>Loading...</p>
-  );
+  const screamElements = !loading
+    ? screams.map((scream) => <Scream key={scream.screamId} scream={scream} />)
+    : Array.from({ length: 5 }).map((item, index) => <ScreamSceleton key={index} />);
 
   return (
-    <Grid container spacing={1}>
+    <Grid container spacing={2}>
       <Grid item sm={8} xs={12}>
         {screamElements}
       </Grid>

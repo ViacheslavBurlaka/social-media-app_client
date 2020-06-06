@@ -9,11 +9,7 @@ import { loginUser } from '../redux/actions/userActions';
 
 // MUI stuff
 import withStyles from '@material-ui/core/styles/withStyles';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { Grid, Typography, TextField, Button, CircularProgress } from '@material-ui/core';
 
 const styles = (theme) => ({
   ...theme.formStyles
@@ -88,9 +84,9 @@ const Login = ({ classes, loginUser, history, UI: { loading, errors } }) => {
           )}
 
           {loading ? (
-            <CircularProgress color="secondary" />
+            <CircularProgress color="primary" />
           ) : (
-            <Button type="submit" variant="contained" className={classes.button}>
+            <Button type="submit" variant="contained" color={'primary'} className={classes.button}>
               Login
             </Button>
           )}

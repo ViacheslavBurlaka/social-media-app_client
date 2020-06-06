@@ -14,16 +14,32 @@ import CommentForm from './CommentForm';
 import LikeButton from './LikeButton';
 
 // MUI stuff
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import { CircularProgress } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import UnfoldMore from '@material-ui/icons/UnfoldMore';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { Dialog, DialogContent, Typography, CircularProgress } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import ChatIcon from '@material-ui/icons/Chat';
+import UnfoldMore from '@material-ui/icons/UnfoldMore';
+
+const styles = (theme) => ({
+  ...theme.formStyles,
+  ...theme.dialogStyles,
+  expandBtn: {
+    marginRight: '1rem',
+    marginLeft: 'auto'
+  },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '0.5rem'
+  },
+  headerTime: {
+    paddingTop: '6px',
+    marginLeft: '0.5rem'
+  }
+});
 
 const ScreamDialog = ({
+  classes,
   openDialog,
   getScream,
   clearErrors,
@@ -78,43 +94,46 @@ const ScreamDialog = ({
   const dialogMarkup = loading ? (
     <CircularProgress />
   ) : (
-    <Grid container>
-      <Grid item>
+    <>
+      <div className={classes.header}>
         <Typography component={Link} color="primary" variant="h5" to={`/users/${userHandle}`}>
           @{userHandle}
         </Typography>
-        <Typography variant="body2" color="textSecondary">
+        <Typography variant="body2" color="textSecondary" className={classes.headerTime}>
           {dayjs(createdAt).format('h:mm a, MMMM DD YYYY')}
         </Typography>
-        <Typography variant="body1">{body}</Typography>
-        <LikeButton screamId={screamId} />
-        <span>{likeCount} likes</span>
-        <CustomButton tip="comments">
-          <ChatIcon />
-        </CustomButton>
-        <span>{commentCount} comments</span>
-      </Grid>
+      </div>
+      <Typography variant="body1">
+        <em>{body}</em>
+      </Typography>
+      <LikeButton screamId={screamId} />
+      <span>{likeCount} likes</span>
+      <CustomButton tip="comments">
+        <ChatIcon />
+      </CustomButton>
+      <span>{commentCount} comments</span>
       <Comments comments={comments} />
       <CommentForm screamId={screamId} />
-    </Grid>
+    </>
   );
 
   return (
     <>
-      <CustomButton tip="Expand scream" onClick={handleOpen}>
-        <UnfoldMore />
+      <CustomButton tip="Expand scream" onClick={handleOpen} btnClassName={classes.expandBtn}>
+        <UnfoldMore color={'primary'} />
       </CustomButton>
       <Dialog open={state.opened} onClose={handleClose} fullWidth maxWidth="sm">
-        <CustomButton tip="Close" onClick={handleClose}>
+        <DialogContent>{dialogMarkup}</DialogContent>
+        <CustomButton tip="Close" onClick={handleClose} btnClassName={classes.closeBtn}>
           <CloseIcon />
         </CustomButton>
-        <DialogContent>{dialogMarkup}</DialogContent>
       </Dialog>
     </>
   );
 };
 
 ScreamDialog.propTypes = {
+  classes: PropTypes.object.isRequired,
   scream: PropTypes.object.isRequired,
   getScream: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
@@ -129,4 +148,6 @@ const mapStateToProps = (state) => ({
   scream: state.data.scream
 });
 
-export default connect(mapStateToProps, { getScream, clearErrors })(ScreamDialog);
+export default connect(mapStateToProps, { getScream, clearErrors })(
+  withStyles(styles)(ScreamDialog)
+);

@@ -1,11 +1,13 @@
 import React from 'react';
-import { CustomButton } from '../layout/CustomButton';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // Redux stuff
 import { connect } from 'react-redux';
 import { likeScream, unlikeScream } from '../../redux/actions/dataActions';
+
+// Components
+import { CustomButton } from '../layout/CustomButton';
 
 // MUI stuff
 import { FavoriteBorder } from '@material-ui/icons';

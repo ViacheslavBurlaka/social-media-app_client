@@ -5,17 +5,26 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { editUserDetails } from '../../redux/actions/userActions';
 
-// MUI stuff
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import TextField from '@material-ui/core/TextField';
-import DialogActions from '@material-ui/core/DialogActions';
+// Components
 import { CustomButton } from '../layout/CustomButton';
+
+// MUI stuff
+import withStyles from '@material-ui/core/styles/withStyles';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Button
+} from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 
-const EditDetails = ({ credentials, editUserDetails }) => {
+const styles = (theme) => ({
+  ...theme.formStyles
+});
+
+const EditDetails = ({ classes, credentials, editUserDetails }) => {
   const initialState = {
     bio: '',
     website: '',
@@ -73,40 +82,43 @@ const EditDetails = ({ credentials, editUserDetails }) => {
   return (
     <>
       <CustomButton tip="Edit details" onClick={handleOpen}>
-        <EditIcon />
+        <EditIcon color="primary" />
       </CustomButton>
       <Dialog open={state.open} onClose={handleClose} fullWidth maxWidth="sm">
-        <DialogTitle>Edit your details</DialogTitle>
+        <DialogTitle align={'center'}>Edit your details</DialogTitle>
         <DialogContent>
           <form>
             <TextField
+              className={classes.textField}
               name="bio"
               type="text"
               label="Bio"
               multiline
-              rows="3"
+              variant="outlined"
               placeholder="A short bio about yourself"
               value={state.bio}
               onChange={handleChange}
               fullWidth
             />
             <TextField
+              className={classes.textField}
               name="website"
               type="text"
               label="Website"
               multiline
-              rows="3"
+              variant="outlined"
               placeholder="Your personal website"
               value={state.website}
               onChange={handleChange}
               fullWidth
             />
             <TextField
+              className={classes.textField}
               name="location"
               type="text"
               label="Location"
               multiline
-              rows="3"
+              variant="outlined"
               placeholder="Where you live"
               value={state.location}
               onChange={handleChange}
@@ -118,7 +130,9 @@ const EditDetails = ({ credentials, editUserDetails }) => {
           <Button onClick={handleClose} color={'secondary'}>
             Cancel
           </Button>
-          <Button onClick={handleSubmit}>Save</Button>
+          <Button onClick={handleSubmit} color={'primary'}>
+            Save
+          </Button>
         </DialogActions>
       </Dialog>
     </>
@@ -127,11 +141,12 @@ const EditDetails = ({ credentials, editUserDetails }) => {
 
 EditDetails.propTypes = {
   editUserDetails: PropTypes.func.isRequired,
-  credentials: PropTypes.object.isRequired
+  credentials: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
   credentials: state.user.credentials
 });
 
-export default connect(mapStateToProps, { editUserDetails })(EditDetails);
+export default connect(mapStateToProps, { editUserDetails })(withStyles(styles)(EditDetails));

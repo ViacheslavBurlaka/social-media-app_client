@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // MUI stuff
-import Tooltip from '@material-ui/core/Tooltip';
+import { Tooltip } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 
 export const CustomButton = ({ children, onClick, tip, btnClassName, tipClassName }) => (

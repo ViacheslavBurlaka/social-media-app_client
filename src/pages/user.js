@@ -9,9 +9,11 @@ import { getUserData } from '../redux/actions/dataActions';
 // Components
 import Scream from '../components/scream/Scream';
 import StaticProfile from '../components/profile/StaticProfile';
+import ProfileSceleton from '../components/sceletons/ProfileSceleton';
+import ScreamSceleton from '../components/sceletons/ScreamSceleton';
 
 // MUI stuff
-import Grid from '@material-ui/core/Grid';
+import { Grid } from '@material-ui/core';
 
 const User = ({ data: { loading, screams }, getUserData, match }) => {
   const initialState = {
@@ -32,6 +34,7 @@ const User = ({ data: { loading, screams }, getUserData, match }) => {
       }));
     }
 
+    // Get only user's posts and dispatch them to store
     getUserData(handle);
 
     // Make another get-request, because I don't want to save static profile data at global state
@@ -47,7 +50,7 @@ const User = ({ data: { loading, screams }, getUserData, match }) => {
   }, [match, getUserData]);
 
   const screamMarkup = loading ? (
-    <div>loading data...</div>
+    Array.from({ length: 2 }).map((item, index) => <ScreamSceleton key={index} />)
   ) : screams === null ? (
     <p>No screams from this user</p>
   ) : !state.screamIdParam ? (
@@ -68,11 +71,7 @@ const User = ({ data: { loading, screams }, getUserData, match }) => {
         {screamMarkup}
       </Grid>
       <Grid item sm={4} xs={12}>
-        {state.profile === null ? (
-          <p>Loading profile ...</p>
-        ) : (
-          <StaticProfile profile={state.profile} />
-        )}
+        {state.profile === null ? <ProfileSceleton /> : <StaticProfile profile={state.profile} />}
       </Grid>
     </Grid>
   );

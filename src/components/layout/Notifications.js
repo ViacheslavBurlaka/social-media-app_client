@@ -9,11 +9,7 @@ import { connect } from 'react-redux';
 import { markNotificationsRead } from '../../redux/actions/userActions';
 
 // MUI stuff
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Typography';
-import Badge from '@material-ui/core/Badge';
+import { Menu, MenuItem, Tooltip, Typography, Badge } from '@material-ui/core';
 
 // Icons
 import NotificationsIcon from '@material-ui/icons/Notifications';

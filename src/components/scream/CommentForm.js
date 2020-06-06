@@ -6,11 +6,20 @@ import { connect } from 'react-redux';
 import { submitComment } from '../../redux/actions/dataActions';
 
 // MUI stuff
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { Grid, Button, TextField } from '@material-ui/core';
 
-const CommentForm = ({ screamId, authenticated, UI: { errors, loading }, submitComment }) => {
+const styles = (theme) => ({
+  ...theme.formStyles
+});
+
+const CommentForm = ({
+  classes,
+  screamId,
+  authenticated,
+  UI: { errors, loading },
+  submitComment
+}) => {
   const initialState = {
     body: '',
     errors: {}
@@ -51,6 +60,7 @@ const CommentForm = ({ screamId, authenticated, UI: { errors, loading }, submitC
     <Grid item sm={12}>
       <form onSubmit={handleSubmit}>
         <TextField
+          className={classes.textField}
           name="body"
           type="text"
           label="Comment on scream"
@@ -60,7 +70,7 @@ const CommentForm = ({ screamId, authenticated, UI: { errors, loading }, submitC
           onChange={handleChange}
           fullWidth
         />
-        <Button type="submit" variant="contained">
+        <Button type="submit" variant="contained" color="primary">
           Submit
         </Button>
       </form>
@@ -74,7 +84,8 @@ CommentForm.propTypes = {
   screamId: PropTypes.string.isRequired,
   authenticated: PropTypes.bool.isRequired,
   submitComment: PropTypes.func.isRequired,
-  UI: PropTypes.object.isRequired
+  UI: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -82,4 +93,4 @@ const mapStateToProps = (state) => ({
   authenticated: state.user.authenticated
 });
 
-export default connect(mapStateToProps, { submitComment })(CommentForm);
+export default connect(mapStateToProps, { submitComment })(withStyles(styles)(CommentForm));
