@@ -7,12 +7,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { Card, CardMedia, CardContent } from '@material-ui/core';
 
 const styles = (theme) => ({
-  card: {
-    position: 'relative',
-    display: 'flex',
-    flexWrap: 'wrap',
-    marginBottom: 16
-  },
+  ...theme.screamStyles,
   image: {
     width: 50,
     height: 50,
@@ -23,14 +18,6 @@ const styles = (theme) => ({
       height: 120,
       margin: 'auto 1rem'
     }
-  },
-  details: {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: '1 0 0'
-  },
-  content: {
-    padding: '1.5rem 1.5rem 1rem'
   },
   handle: {
     width: 60,

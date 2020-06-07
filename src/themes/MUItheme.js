@@ -103,5 +103,26 @@ export const theme = createMuiTheme({
       justifyContent: 'space-between',
       padding: '0 1rem 1rem'
     }
+  },
+  // Scream
+  screamStyles: {
+    card: {
+      position: 'relative',
+      display: 'flex',
+      flexWrap: 'wrap',
+      marginBottom: 16
+    },
+    details: {
+      display: 'flex',
+      flexDirection: 'column',
+      flex: '1 0 0'
+    },
+    content: {
+      padding: '1.5rem 1.5rem 1rem'
+    },
+    actions: {
+      display: 'flex',
+      alignItems: 'center'
+    }
   }
 });
