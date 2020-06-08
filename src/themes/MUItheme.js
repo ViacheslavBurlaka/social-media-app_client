@@ -1,4 +1,6 @@
 import { createMuiTheme } from '@material-ui/core/styles';
+import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
+const breakpoints = createBreakpoints({}); // outputs {xs: 0, sm: 600, md: 960, lg: 1280, xl: 1920}
 
 export const theme = createMuiTheme({
   palette: {
@@ -15,19 +17,14 @@ export const theme = createMuiTheme({
       contrastText: '#fff'
     }
   },
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 960,
-      lg: 1280,
-      xl: 1920
-    }
-  },
   // Navbar
   navbar: {
     container: {
+      justifyContent: 'center',
+      maxWidth: '1200px',
+      width: '100%',
       margin: '0 auto',
+      padding: '0 1rem',
       '& svg': {
         color: '#fff'
       }
@@ -111,6 +108,17 @@ export const theme = createMuiTheme({
       display: 'flex',
       flexWrap: 'wrap',
       marginBottom: 16
+    },
+    image: {
+      width: 50,
+      height: 50,
+      borderRadius: '50%',
+      margin: '1rem 1.5rem 0',
+      [breakpoints.up('sm')]: {
+        width: 120,
+        height: 120,
+        margin: 'auto 1rem'
+      }
     },
     details: {
       display: 'flex',

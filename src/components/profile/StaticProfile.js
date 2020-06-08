@@ -11,7 +11,7 @@ import { Paper, Typography } from '@material-ui/core';
 //MUI Icons
 import LocationOn from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
-import CalendarToday from '@material-ui/icons/CalendarToday';
+import CalendarToday from '@material-ui/icons/CalendarTodayTwoTone';
 
 const styles = (theme) => ({
   ...theme.profileStyles

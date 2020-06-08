@@ -17,7 +17,7 @@ import LikeButton from './LikeButton';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Dialog, DialogContent, Typography, CircularProgress } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import ChatIcon from '@material-ui/icons/Chat';
+import ChatIcon from '@material-ui/icons/ChatTwoTone';
 import UnfoldMore from '@material-ui/icons/UnfoldMore';
 
 const styles = (theme) => ({
@@ -109,7 +109,7 @@ const ScreamDialog = ({
       <LikeButton screamId={screamId} />
       <span>{likeCount} likes</span>
       <CustomButton tip="comments">
-        <ChatIcon />
+        <ChatIcon color="primary" />
       </CustomButton>
       <span>{commentCount} comments</span>
       <Comments comments={comments} />

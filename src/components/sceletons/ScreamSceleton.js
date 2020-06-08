@@ -8,17 +8,6 @@ import { Card, CardMedia, CardContent } from '@material-ui/core';
 
 const styles = (theme) => ({
   ...theme.screamStyles,
-  image: {
-    width: 50,
-    height: 50,
-    borderRadius: '50%',
-    margin: '1rem 1.5rem 0',
-    [theme.breakpoints.up('sm')]: {
-      width: 120,
-      height: 120,
-      margin: 'auto 1rem'
-    }
-  },
   handle: {
     width: 60,
     height: 18,

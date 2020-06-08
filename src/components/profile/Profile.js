@@ -21,9 +21,9 @@ import MuiLink from '@material-ui/core/Link';
 //MUI Icons
 import LocationOn from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
-import CalendarToday from '@material-ui/icons/CalendarToday';
-import UploadIcon from '@material-ui/icons/PhotoCamera';
-import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
+import CalendarToday from '@material-ui/icons/CalendarTodayTwoTone';
+import UploadIcon from '@material-ui/icons/PhotoCameraTwoTone';
+import ExitIcon from '@material-ui/icons/ExitToApp';
 
 const styles = (theme) => ({
   ...theme.profileStyles
@@ -98,7 +98,7 @@ const Profile = ({
         </div>
         <div className={classes.profileActions}>
           <CustomButton tip="Logout" onClick={handleLogout}>
-            <KeyboardReturn color="primary" />
+            <ExitIcon color="primary" />
           </CustomButton>
           <EditDetails />
         </div>

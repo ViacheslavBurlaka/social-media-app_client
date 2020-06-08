@@ -10,8 +10,8 @@ import { likeScream, unlikeScream } from '../../redux/actions/dataActions';
 import { CustomButton } from '../layout/CustomButton';
 
 // MUI stuff
-import { FavoriteBorder } from '@material-ui/icons';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorderTwoTone';
+import FavoriteIcon from '@material-ui/icons/FavoriteTwoTone';
 
 const LikeButton = ({ user: { authenticated, likes }, screamId, likeScream, unlikeScream }) => {
   const likedScream = () => {

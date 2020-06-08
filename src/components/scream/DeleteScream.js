@@ -11,7 +11,7 @@ import { deleteScream } from '../../redux/actions/dataActions';
 // MUI stuff
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Button, Dialog, DialogActions, DialogTitle } from '@material-ui/core';
-import DeleteOutline from '@material-ui/icons/DeleteOutline';
+import DeleteOutline from '@material-ui/icons/DeleteTwoTone';
 
 const styles = {
   deleteBtn: {

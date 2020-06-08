@@ -16,21 +16,10 @@ import { connect } from 'react-redux';
 // MUI stuff
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Card, CardContent, Typography, CardMedia } from '@material-ui/core';
-import ChatIcon from '@material-ui/icons/Chat';
+import ChatIcon from '@material-ui/icons/ChatTwoTone';
 
 const styles = (theme) => ({
-  ...theme.screamStyles,
-  image: {
-    width: 50,
-    height: 50,
-    borderRadius: '50%',
-    margin: '1rem 1.5rem 0',
-    [theme.breakpoints.up('sm')]: {
-      width: 120,
-      height: 120,
-      margin: 'auto 1rem'
-    }
-  }
+  ...theme.screamStyles
 });
 
 dayjs.extend(relativeTime);
