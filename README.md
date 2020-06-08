@@ -19,6 +19,11 @@ A full stack, fully-featured social media application using React, Redux, Fireba
 
 This project covers things such as integration/interactive with REST API server built with Node.js and Express, user login and authentication, image uploads, notifications, cloud functions, and much more. [Server-side realization here](https://github.com/ViacheslavBurlaka/social-media-app_firebase).
 
+![alt text](https://user-images.githubusercontent.com/16492645/84075949-9d4a9a00-a9dd-11ea-9fcb-c08a397c5c06.png)
+![alt text](https://user-images.githubusercontent.com/16492645/84075934-99b71300-a9dd-11ea-83a1-999cb69dd627.png)
+![alt text](https://user-images.githubusercontent.com/16492645/84076644-d0d9f400-a9de-11ea-9694-dd5ee09b552f.png)
+
+
 
 ### Implemented features:
 - Sign up and auth state
